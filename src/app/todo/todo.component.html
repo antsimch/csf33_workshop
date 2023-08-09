@@ -1,0 +1,51 @@
+<div class="container-fluid">
+    <h3>To Do:</h3>
+    <form [formGroup]="form" (ngSubmit)="processForm(form)">
+        <mat-form-field>
+            <mat-label>Description: </mat-label>
+            <input 
+                formControlName="description"
+                matInput>
+            <br>
+            <mat-error 
+                *ngIf="form.get('description')?.hasError('required')" 
+                >Description is required</mat-error>
+            <mat-error 
+                *ngIf="form.get('description')?.hasError('minlength')" 
+                >Description must have minimum of 5 characters</mat-error>
+        </mat-form-field>
+
+        <div>
+            <mat-radio-group formControlName="priority">
+                <mat-label>Priority: </mat-label>
+                <span *ngFor="let priority of priorities">
+                    <mat-radio-button 
+                        [value]="priority"
+                        >{{priority}}</mat-radio-button>
+                </span>
+            </mat-radio-group>
+        </div>
+
+        <mat-form-field>
+            <mat-label>Due Date: </mat-label>
+            <input 
+                matInput
+                [matDatepicker]="datepicker" 
+                formControlName="dueDate">
+            <mat-datepicker-toggle 
+                matSuffix 
+                [for]="datepicker"></mat-datepicker-toggle>
+            <mat-datepicker #datepicker></mat-datepicker>
+            <br>
+            <mat-error 
+                *ngIf="form.get('dueDate')?.hasError('lessThanToday')" 
+                class="text-danger"
+                >Due date cannot be earlier than today</mat-error>
+        </mat-form-field>
+        <button 
+            mat-raised-button 
+            color="primary" 
+            [disabled]="!form.valid"
+            >Add</button>
+    </form>
+</div>

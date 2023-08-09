@@ -1,0 +1,27 @@
+<div class="container-fluid" *ngIf="outstandingTasks.length > 0">
+    <mat-list>
+        <mat-list-item *ngFor="let task of outstandingTasks">
+            <span *ngIf="task.isComplete != true">
+                <h4 matListItemTitle>{{task.description}}</h4>
+                <p matListItemLine>
+                    <span>{{task.priority}}</span>
+                    <span>  {{task.dueDate}}</span>    
+                </p>
+                <span matListItemLine>
+                    <button 
+                        type="button" 
+                        color="primary" 
+                        mat-raised-button 
+                        (click)="task.isComplete = true"
+                        >Complete</button>
+                    <button 
+                        type="button"
+                        color="warn" 
+                        mat-raised-button
+                        (click)="deleteTask(task)"
+                        >Delete</button>
+                </span>
+            </span>
+        </mat-list-item>
+    </mat-list>
+</div>
